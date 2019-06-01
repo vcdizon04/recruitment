@@ -1,0 +1,81 @@
+<div id="wrapper">
+  <app-sidebar></app-sidebar>
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+      <app-nav-bar></app-nav-bar>
+         <div class="container-fluid">
+            <ul class="recruitment-step-progress p-0">
+                <li class="{{currentStep == 1 ? 'active' : 'not-active'}}"><span class="step-number">1</span><span class="step-content">Job description</span></li>
+                <li class="{{currentStep == 2 ? 'active' : 'not-active'}}"><span class="step-number">2</span><span class="step-content">Hiring workflow</span>
+                </li>
+                <li class="{{currentStep == 3 ? 'active' : 'not-active'}}"><span class="step-number">3</span><span class="step-content">Job information</span>
+                </li>
+                <li class="{{currentStep == 4 ? 'active' : 'not-active'}}"><span class="step-number">4</span><span class="step-content">Basic information</span>
+                </li>
+                <li class="{{currentStep == 5 ? 'active' : 'not-active'}}"><span class="step-number">5</span><span class="step-content">Question set</span></li>
+              </ul>
+
+             <div *ngIf="currentStep == 1">
+                <div class="card shadow mb-4">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                      <h6 class="m-0 font-weight-bold text-primary">Job information</h6>
+                      
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+                      <div class="mb-4">
+                          <p class="mb-1">Position Title</p>
+                          <input type="text">
+                      </div>
+
+                      <div class="mb-4">
+                          <p class="mb-1">Opening Description</p>
+                          <editor apiKey="w1avmrtxbk66oqxy9zhv3923hk1whon1eepsjtimqkcubcig" [(ngModel)]="description" [init]="{menubar:false,statusbar: false}"></editor>
+                      </div>
+        
+                      <div class="mb-4">
+                        <button (click)="nextStep()" class="btn btn-primary btn-lg float-right"> Next <i class="ml-1 fa fa-chevron-right"></i></button>
+                      </div>
+                    </div>
+                  </div>
+             </div>  
+                <div *ngIf="currentStep == 2">
+                <div class="card shadow mb-4">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                      <h6 class="m-0 font-weight-bold text-primary">Hiring Stage</h6>
+                      
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+                      <div class="alert alert-primary" role="alert">
+                          Stages below reflect the steps in your hiring process. Coordinator of a stage typically schedules interviews, collects evaluation from interviewers and communicates with the candidate.
+                      </div>
+                     
+                      <div class="mb-4">
+                        <div class="well" style="max-height: 300px;overflow: auto;">
+                          <ul class="list-group checked-list-box">
+                            <ngx-sortable listStyle="listStyle" [items]="items" [name]="'Stages'" (listSorted)="listSorted($event)" >
+                                <ng-template let-item>
+                                    <li class="list-group-item" data-style="button" data-color="info">{{item}}</li>
+                                </ng-template>
+                            </ngx-sortable>
+                          </ul>
+                        </div>
+                      </div>
+        
+                      <div class="mb-4">
+                        <button (click)="nextStep()" class="btn btn-primary btn-lg float-right"> Next <i class="ml-1 fa fa-chevron-right"></i></button>
+                      </div>
+                    </div>
+                  </div>
+             </div> 
+
+         </div>
+      </div>
+    </div>
+</div>

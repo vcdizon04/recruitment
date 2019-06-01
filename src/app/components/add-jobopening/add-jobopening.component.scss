@@ -1,0 +1,91 @@
+ul.recruitment-step-progress {
+    overflow: hidden;
+    counter-reset: step;
+    margin: 0 auto;
+    // max-width: 1060px;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    li.active {
+        background-color: #4e73df;
+        color: #fff;
+        .step-number {
+            background-color: white;
+            border-radius: 11px;
+            color: #4e73df;
+            padding: 3px 8px;
+        }
+        .step-content {
+            background-color: #4e73df;
+            color: #fff;
+            padding-left: 5px;
+        }
+    }
+    li {
+        list-style-type: none;
+        width: 208px;
+        float: left;
+        position: relative;
+        text-align: center;
+        color: #444;
+        background-color: #fafafa;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-weight: bold;
+        border-bottom: 1px solid #e5e5e5;
+        border-top: 1px solid #e5e5e5;
+        .step-number {
+            background-color: #E5E5E5;
+            border-radius: 11px;
+            color: #adadad;
+            padding: 3px 8px;
+        }
+        .step-content {
+            background-color: #fafafa;
+            color: #a6a6a6;
+            padding-left: 5px;
+        }
+    }
+    li.not-active::after {
+        background-color: #fafafa;
+        border-left: 1px solid #e5e5e5;
+        border-top: 1px solid #e5e5e5;
+        content: "";
+        height: 32px;
+        position: absolute;
+        right: -16px;
+        top: 6px;
+        transform: rotate(135deg);
+        width: 32px;
+        z-index: 1;
+    }
+    li.active::after {
+        background-color: #4e73df;
+        content: "";
+        height: 32px;
+        position: absolute;
+        right: -16px;
+        top: 6px;
+        transform: rotate(135deg);
+        width: 32px;
+        z-index: 1;
+    }   
+}
+
+input[type="text"]{
+    width: 100%;
+    padding-left: 10px;
+}
+
+/* CSS REQUIRED */
+.state-icon {
+    left: -5px;
+}
+.list-group-item-primary {
+    color: rgb(255, 255, 255);
+    background-color: rgb(66, 139, 202);
+}
+
+/* DEMO ONLY - REMOVES UNWANTED MARGIN */
+.well .list-group {
+    margin-bottom: 0px;
+}
