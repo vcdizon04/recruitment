@@ -1,3 +1,4 @@
+
 ul.recruitment-step-progress {
     overflow: hidden;
     counter-reset: step;
@@ -12,7 +13,7 @@ ul.recruitment-step-progress {
             background-color: white;
             border-radius: 11px;
             color: #4e73df;
-            padding: 3px 8px;
+            padding: 0 7px;
         }
         .step-content {
             background-color: #4e73df;
@@ -37,7 +38,7 @@ ul.recruitment-step-progress {
             background-color: #E5E5E5;
             border-radius: 11px;
             color: #adadad;
-            padding: 3px 8px;
+            padding: 0 7px;
         }
         .step-content {
             background-color: #fafafa;
@@ -89,3 +90,26 @@ input[type="text"]{
 .well .list-group {
     margin-bottom: 0px;
 }
+ul{
+    .list-group-item{
+        cursor: move;
+        p{
+            margin: 0;
+            display: inline;
+        }
+       
+    }
+}
+
+.job-information{
+    .label{
+        padding: 6px 12px;
+    }
+}
+
+.modal{
+    .field-label{
+        padding: 6px 12px;
+    }
+}
+// @import "https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css";

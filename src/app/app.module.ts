@@ -5,7 +5,7 @@ import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { FormsModule } from '@angular/forms';
-import { NgxSortableModule } from 'ngx-sortable'
+
 
 
 @NgModule({
@@ -19,7 +19,6 @@ import { NgxSortableModule } from 'ngx-sortable'
     AppRoutingModule,
     EditorModule,
     FormsModule,
-    NgxSortableModule 
   ],
   providers: [],
   bootstrap: [AppComponent],
