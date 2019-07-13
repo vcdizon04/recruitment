@@ -1,9 +1,20 @@
-table#dataTable{
-    border-top: none;
-    margin-top: 0 !important;
-    thead{
-        th{
-            border-top: none;
+// table#dataTable{
+//     border-top: none;
+//     margin-top: 0 !important;
+//     thead{
+//         th{
+//             border-top: none;
+//         }
+//     }
+// }
+
+ul{
+    li{
+        a{
+            color: #4e73df;
+            text-decoration: none;
+            background-color: transparent;
+            cursor: pointer;
         }
     }
 }

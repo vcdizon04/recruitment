@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { EmailService } from './services/email.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'recruitment';
+  constructor(private emailService: EmailService) {
+    this.emailService.loadConfig();
+  }
 }
+
+

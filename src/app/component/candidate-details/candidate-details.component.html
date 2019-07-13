@@ -1,0 +1,387 @@
+<div id="wrapper">
+    <div class="modal fade" id="modalAddEmployee" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add New Employee</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+             <div class="row mb-4">
+              <div class="col-md-6 mb-3">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="">First Name</span>
+                      </div>
+                      <input [(ngModel)]="employee.firstName" type="text" class="form-control">
+                    </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Middle Name</span>
+                      </div>
+                      <input [(ngModel)]="employee.middleName" type="text" class="form-control">
+                    </div>
+              </div> 
+              <div class="col-md-6 mb-3">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Last Name</span>
+                      </div>
+                      <input [(ngModel)]="employee.lastName" type="text" class="form-control">
+                    </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Employee ID</span>
+                      </div>
+                      <input [(ngModel)]="employee.employeeId" type="text" class="form-control">
+                    </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Email</span>
+                      </div>
+                      <input [(ngModel)]="employee.email" type="email" class="form-control">
+                    </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Department</label>
+                      </div>
+                      <select [(ngModel)]="employee.department" class="custom-select" id="inputGroupSelect01">
+                        <option value="">Choose...</option>
+                        <option value="Administration">Administration</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Design">Design</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Sales">Sales</option>
+                        <option value="Support">Support</option>
+                      </select>
+                    </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Job Title</label>
+                      </div>
+                      <select [(ngModel)]="employee.designation" class="custom-select" id="inputGroupSelect01">
+                        <option value="">Choose...</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Android Developer">Android Developer</option>
+                        <option value="Frontend Developer">Frontend Developer</option>
+                        <option value="HR Manager">HR Manager</option>
+                        <option value="iOS Developer">iOS Developer</option>
+                        <option value="Marketing Manage">Marketing Manager</option>
+                        <option value="Platform Engineer">Platform Engineer</option>
+                        <option value="Print Designer">Print Designer</option>
+                        <option value="Sales Executive">Sales Executive</option>
+                        <option value="Sales Manager">Sales Manager</option>
+                        <option value="Support Ninja">Support Ninja</option>
+                        <option value="UI Designer">UI Designer</option>
+                      </select>
+                    </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Employee Type</label>
+                      </div>
+                      <select [(ngModel)]="employee.employeeType" class="custom-select" id="inputGroupSelect01">
+                        <option value="">Choose...</option>
+                        <option value="Full Time">Full Time</option>
+                        <option value="Part Time">Part Time</option>
+                        <option value="On Contract">On Contract</option>
+                        <option value="Temporary">Temporary</option>
+                        <option value="Trainee">Trainee</option>
+                      </select>
+                    </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Employee Status</label>
+                      </div>
+                      <select [(ngModel)]="employee.status" class="custom-select" id="inputGroupSelect01">
+                        <option value="">Choose...</option>
+                        <option value="Active">Active</option>
+                        <option value="Terminated">Terminated</option>
+                        <option value="Deceased">Deceased</option>
+                        <option value="Resigned">Resigned</option>
+                      </select>
+                    </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                  <input [(ngModel)]="employee.dateOfHire" type="text" id="datepickerAddEmployee" class="" placeholder="Date of Hire">
+              </div>
+             </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button (click)="addEmployee()" type="button" class="btn btn-primary" data-dismiss="modal">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  <div class="modal fade" id="modalAddInterview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Create New Interview</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row mb-4">
+            <div class="col">
+                <select [(ngModel)]="interview.stage" class="custom-select" id="inputGroupSelect04">
+                    <option value="">Choose Stage...</option>
+                    <option value="Screening">Screening</option>
+                    <option value="Phone Interview">Phone Interview</option>
+                    <option value="Face to Face Interview">Face to Face Interview</option>
+                    <option value="Make an Offer">Make an Offer</option>
+                  </select>
+            </div>
+            <div class="col">
+              <input placeholder="Details" [(ngModel)]="interview.detail" type="text" class="form-control">
+            </div>
+          </div>
+          <div class="row mb-4">
+              <div class="col">
+                  <select [(ngModel)]="interview.interviewer" class="custom-select" id="inputGroupSelect04">
+                      <option value="">Choose Interviewer...</option>
+                      <option *ngFor="let employee of employees" [value]="employee.name">{{employee.name}}</option>
+                    </select>
+              </div>
+              <div class="col">
+                <input class="form-control" [(ngModel)]="interview.duration" type="number" placeholder="Duration on Minutes">
+              </div>
+          </div>
+          <div class="row">
+            <div class="col">
+                <input [(ngModel)]="interview.date" type="text" id="datepicker" class="" placeholder="Date of Interview">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button (click)="addInterview()" type="button" class="btn btn-primary" data-dismiss="modal">{{interviewAction}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-sidebar></app-sidebar>
+  
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+  
+  <!-- Main Content -->
+  <div id="content">
+    <app-nav-bar></app-nav-bar>
+    <div class="container-fluid">
+  
+      <h1 class="h3 mb-2 text-gray-800">Candidate Details</h1>
+      <!-- DataTales Example -->
+      <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more
+        information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official
+          DataTables documentation</a>.</p>
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary d-inline">Applicant</h6>
+          <button (click)="downloadAllFiles()" class="float-right btn btn-primary">Download All Files</button>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-6 profile">
+                  <img class="mr-4" src="assets/img/user.jpg" alt="">
+                  <p class="text-primary mb-1">{{parseJson(candidate?.details)[0]?.value}}</p>
+                  <p class="mb-1">Stage: <span class="ml-2">{{candidate?.stage}}</span></p>
+                  <p class="mb-1">Rating: <span class="ml-2">{{candidate?.rating}}</span></p>
+                  <p class="mb-2">Status: <span class="ml-2">No Status</span></p>
+                  <button data-toggle="modal" data-target="#modalAddInterview" class="btn btn-primary mr-2">New Interview </button>
+                  <!-- <button  class="btn btn-primary mr-2">New To-do </button> -->
+                  <!-- <button class="btn btn-info mr-2">View CV </button> -->
+                  <button data-toggle="modal" data-target="#modalAddEmployee"  class="btn btn-success mr-2">Hire </button>
+            </div>
+            <div class="col-lg-6">
+               <div class="row">
+                 <div class="col">
+                    <div class="input-group">
+                        <select [(ngModel)]="stage" class="custom-select" id="inputGroupSelect04">
+                          <option value="">Choose Stage...</option>
+                          <option value="Screening">Screening</option>
+                          <option value="Phone Interview">Phone Interview</option>
+                          <option value="Face to Face Interview">Face to Face Interview</option>
+                          <option value="Make an Offer">Make an Offer</option>
+                        </select>
+                        <div class="input-group-append">
+                          <button (click)="updateCandidateStage()" class="btn btn-primary" type="button">Update</button>
+                        </div>
+                      </div>
+                 </div>
+                 <div class="col">
+                    <div class="input-group">
+                        <select [(ngModel)]="status" class="custom-select" id="inputGroupSelect04">
+                          <option value="">Choose Status...</option>
+                          <option value="Rejected">Rejected</option>
+                          <option value="Withdrawn">Withdrawn</option>
+                          <option value="Declined Offer">Declined Offer</option>
+                        </select>
+                        <div class="input-group-append">
+                          <button (click)="updateCandidateStatus()" class="btn btn-primary" type="button">Update</button>
+                        </div>
+                      </div>
+                 </div>
+               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Candidate Profile</h6>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-2">
+                <p *ngFor="let detail of parseJson(candidate?.details)" class="text-primary">
+                  {{detail.text}}    :
+                </p>
+              </div>
+              <div class="col-10">
+                <div *ngFor="let detail of parseJson(candidate?.details)">
+                   
+
+                    <ng-container *ngIf="detail.type == 'file'; else elseTextTemplate">
+                      <p><a [href]="fileServer+'/' + detail.value" target="_blank">
+                        {{detail.value ? fileServer + '/' + detail.value : ''}}
+                      </a></p>
+                    </ng-container>
+                    <ng-template #elseTextTemplate>
+                      <p  class="">
+                        {{detail.value}}
+                        </p>
+                    </ng-template>
+                    
+                   
+                </div>
+                 
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Resume</h6>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                    <ngx-doc-viewer [url]="fileServer+'/' + parseJson(candidate?.details)[2]?.value" viewer="google" style="width:100%;height:60vh;"></ngx-doc-viewer>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          
+          <div class="card shadow mb-4">
+              <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary d-inline">Comments</h6>
+                <button class="btn btn-info float-right" (click)="updateComment()">Save</button>
+              </div>
+              <div class="card-body">
+                <div class="row ">
+                  <div class="col">
+                  <textarea [(ngModel)]="comment" class="form-control" name="" id="" cols="30" rows="10"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+             
+          <div class="card shadow mb-4">
+              <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Rating</h6>
+              </div>
+              <div class="card-body">
+                <div class="row ">
+                  <div class="col">
+                          <star-rating labelText="Overall Rating: "  (ratingChange)="onRatingChange($event)" [starType]="'svg'" [rating]="rating"></star-rating>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="d-inline m-0 font-weight-bold text-primary">Interview</h6>
+                  <button data-toggle="modal" data-target="#modalAddInterview" class="float-right btn btn-primary">ADD</button>
+                </div>
+                <div class="card-body">
+                  <div class="row ">
+                    <div class="col">
+                        <div *ngFor="let interview of phoneInterViews; let i = index" class="card shadow mb-4">
+                            <div class="card-header py-3">
+                              <h6 class="d-inline m-0 font-weight-bold text-primary">{{interview.stage}}</h6>
+                              <button (click)="deleteInterview(i)" class="float-right btn btn-danger">Delete</button>
+                              <button  (click)="editInterview(interview, i)"  data-toggle="modal" data-target="#modalAddInterview" class="mr-2 float-right btn btn-info">Edit</button>
+                            </div>
+                            <div class="card-body">
+                              <div class="row ">
+                                <div class="col">
+                                   <p class="m-0">Interviewer: {{interview.interviewer}}</p>
+                                   <p class="m-0">Date: {{interview.date}}</p>
+                                   <p class="m-0">Duration: {{interview.duration}}</p>
+                                   <p class="m-0">Detail: {{interview.detail}} Minutes</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">To-DO List</h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="row ">
+                      <div class="col">
+                          <div class="card shadow mb-4">
+                              <div class="card-header py-3">
+                                <h6 class="d-inline m-0 font-weight-bold text-primary">To-do 1</h6>
+                                <button class="float-right btn btn-danger">Delete</button>
+                                <button class="float-right mr-2 btn btn-info">Mark Done</button>
+                              </div>
+                              <div class="card-body">
+                                <div class="row ">
+                                  <div class="col">
+                                     <p class="m-0">Interviewers:</p>
+                                     <p class="m-0">Date and Time:</p>
+                                     <p class="m-0">Status:</p>
+                                     
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+    
+  
+    </div>
+  </div>
+  </div>
+  </div>

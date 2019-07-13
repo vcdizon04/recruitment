@@ -1,4 +1,120 @@
 <div id="wrapper">
+    <div class="modal fade" id="modalAddEmployee" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add New Employee</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+             <div class="row mb-4">
+              <div class="col-md-6 mb-3">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="">First Name</span>
+                      </div>
+                      <input [(ngModel)]="employee.firstName" type="text" class="form-control">
+                    </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Middle Name</span>
+                      </div>
+                      <input [(ngModel)]="employee.middleName" type="text" class="form-control">
+                    </div>
+              </div> 
+              <div class="col-md-6 mb-3">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Last Name</span>
+                      </div>
+                      <input [(ngModel)]="employee.lastName" type="text" class="form-control">
+                    </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Employee ID</span>
+                      </div>
+                      <input [(ngModel)]="employee.employeeId" type="text" class="form-control">
+                    </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Email</span>
+                      </div>
+                      <input [(ngModel)]="employee.email" type="email" class="form-control">
+                    </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Department</label>
+                      </div>
+                      <select [(ngModel)]="employee.department" class="custom-select" id="inputGroupSelect01">
+                        <option value="">Choose...</option>
+                        <option value="Administration">Administration</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Design">Design</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Sales">Sales</option>
+                        <option value="Support">Support</option>
+                      </select>
+                    </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Job Title</span>
+                      </div>
+                      <input [(ngModel)]="employee.designation" type="text" class="form-control">
+                    </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Employee Type</label>
+                      </div>
+                      <select [(ngModel)]="employee.employeeType" class="custom-select" id="inputGroupSelect01">
+                        <option value="">Choose...</option>
+                        <option value="Full Time">Full Time</option>
+                        <option value="Part Time">Part Time</option>
+                        <option value="On Contract">On Contract</option>
+                        <option value="Temporary">Temporary</option>
+                        <option value="Trainee">Trainee</option>
+                      </select>
+                    </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Employee Status</label>
+                      </div>
+                      <select [(ngModel)]="employee.status" class="custom-select" id="inputGroupSelect01">
+                        <option value="">Choose...</option>
+                        <option value="Active">Active</option>
+                        <option value="Terminated">Terminated</option>
+                        <option value="Deceased">Deceased</option>
+                        <option value="Resigned">Resigned</option>
+                      </select>
+                    </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                  <input [(ngModel)]="employee.dateOfHire" type="text" id="datepicker" class="" placeholder="Date of Hire">
+              </div>
+             </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button (click)="addEmployee()" type="button" class="btn btn-primary" data-dismiss="modal">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
   <app-sidebar></app-sidebar>
   <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
@@ -15,119 +131,73 @@
           DataTables documentation</a>.</p>
       <div class="card shadow mb-4">
         <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-primary">Entries</h6>
+          <h6 class="m-0 font-weight-bold text-primary d-inline">Entries</h6>
+          <button data-toggle="modal" data-target="#modalAddEmployee" class="btn btn-primary float-right">Add Employee</button>
         </div>
         <div class="card-body">
           <div class="table-responsive">
             <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
               <div class="row">
-                <div class="col-sm-12 col-md-6">
-                  <div class="dataTables_length" id="dataTable_length"><label>Show <select name="dataTable_length"
-                        aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                      </select> entries</label></div>
-                </div>
-                <div class="col-sm-12 col-md-6">
-                  <div id="dataTable_filter" class="dataTables_filter"><label>Search:<input type="search"
-                        class="form-control form-control-sm" placeholder="" aria-controls="dataTable"></label></div>
-                </div>
-              </div>
-              <div class="row">
                 <div class="col-sm-12">
-                <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                      <a class="nav-link active" href="#">All</a>
+                  <ul class="nav nav-tabs mb-4">
+                    <li (click)="filter('All')" class="nav-item">
+                      <a class="nav-link {{currentFilter == 'All' ? 'active' : ''}}" >All</a>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Active</a>
+                    <li (click)="filter('Active')" class="nav-item">
+                      <a class="nav-link {{currentFilter == 'Active' ? 'active' : ''}}" >Active</a>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Terminated</a>
+                    <li (click)="filter('Terminated')" class="nav-item">
+                      <a class="nav-link {{currentFilter == 'Terminated' ? 'active' : ''}}" >Terminated</a>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link " href="#" >Deceased</a>
+                    <li  (click)="filter('Deceased')" class="nav-item">
+                      <a class="nav-link {{currentFilter == 'Deceased' ? 'active' : ''}}"  >Deceased</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="#" >Resigned</a>
+                    <li (click)="filter('Resigned')" class="nav-item">
+                        <a class="nav-link {{currentFilter == 'Resigned' ? 'active' : ''}}" >Resigned</a>
                     </li>
                   </ul>
-                  <table id="mt-0" class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid"
-                    aria-describedby="dataTable_info" style="width: 100%;">
-                    <thead>
-                      <tr role="row">
-                        <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                          aria-sort="ascending" aria-label="Name: activate to sort column descending"
-                          style="width: 157px;">Employee Name</th>
-                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                          aria-label="Office: activate to sort column ascending" style="width: 113px;">Designation</th>
-                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                          aria-label="Age: activate to sort column ascending" style="width: 101px;">Department</th>
-                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                          aria-label="Start date: activate to sort column ascending" style="width: 105px;">Employment Type
-                        </th>
-                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                          aria-label="Salary: activate to sort column ascending" style="width: 95px;">Status</th>
-                      </tr>
-                    </thead>
-                    <tfoot>
-                      <tr>
-                        <th rowspan="1" colspan="1">Employee Name</th>
-                        <th rowspan="1" colspan="1">Designations</th>
-                        <th rowspan="1" colspan="1">Department</th>
-                        <th rowspan="1" colspan="1">Employment Type</th>
-                        <th rowspan="1" colspan="1">Status</th>
-                      </tr>
-                    </tfoot>
-                    <tbody>
-                      <tr role="row" class="odd">
-                        <td class="sorting_1">Questionnaire 1</td>
-                        <td>10</td>
-                        <td>2019-05-29</td>
-                        <td>2019-05-29</td>
-                        <td></td>
-                      </tr>
-                      <tr role="row" class="odd">
-                        <td class="sorting_1">Questionnaire 2</td>
-                        <td>20</td>
-                        <td>2019-05-29</td>
-                        <td>2019-05-29</td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <table datatable  [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid"
+                  aria-describedby="dataTable_info" style="width: 100%;">
+                  <thead>
+                    <tr role="row">
+                      <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-sort="ascending" aria-label="Name: activate to sort column descending"
+                        style="width: 157px;">Employee Name</th>
+                      <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-label="Position: activate to sort column ascending" style="width: 50px;">Designation</th>
+                      <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-label="Office: activate to sort column ascending" style="width: 113px;">Department</th>
+                      <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-label="Age: activate to sort column ascending" style="width: 101px;">Employment Type</th>
+                      <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-label="Start date: activate to sort column ascending" style="width: 105px;">Status
+                      </th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th rowspan="1" colspan="1">Employee Name</th>
+                      <th rowspan="1" colspan="1">Designation</th>
+                      <th rowspan="1" colspan="1">Department</th>
+                      <th rowspan="1" colspan="1">Employment Type</th>
+                      <th rowspan="1" colspan="1">Status</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                    <tr *ngFor="let employee of employees" role="row" class="odd">
+                      <td class="sorting_1 cursor-pointer"><span (click)="viewCandidate(candidate)" class="text-primary">{{employee.name}}</span></td>
+                      <td>{{employee.designation}}</td>
+                      <td> {{employee.department}}</td>
+                      <td>{{employee.employment_type}}</td>
+                      <td>
+                        {{employee.status}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-sm-12 col-md-5">
-                  <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">Showing 1 to 10 of
-                    57 entries</div>
-                </div>
-                <div class="col-sm-12 col-md-7">
-                  <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                    <ul class="pagination">
-                      <li class="paginate_button page-item previous disabled" id="dataTable_previous"><a href="#"
-                          aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
-                      <li class="paginate_button page-item active"><a href="#" aria-controls="dataTable" data-dt-idx="1"
-                          tabindex="0" class="page-link">1</a></li>
-                      <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="2"
-                          tabindex="0" class="page-link">2</a></li>
-                      <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="3"
-                          tabindex="0" class="page-link">3</a></li>
-                      <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="4"
-                          tabindex="0" class="page-link">4</a></li>
-                      <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="5"
-                          tabindex="0" class="page-link">5</a></li>
-                      <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" data-dt-idx="6"
-                          tabindex="0" class="page-link">6</a></li>
-                      <li class="paginate_button page-item next" id="dataTable_next"><a href="#"
-                          aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+          
             </div>
           </div>
         </div>

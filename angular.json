@@ -27,7 +27,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/ngx-toastr/toastr.css" 
             ],
             "scripts": [
               "src/assets/vendor/jquery/jquery.min.js",
@@ -35,7 +36,10 @@
               "src/assets/vendor/jquery-easing/jquery.easing.min.js",
               "src/assets/js/sb-admin-2.min.js",
               "src/assets/vendor/jquery/jquery-ui.min.js",
-              "node_modules/gijgo/js/gijgo.min.js"
+              "src/assets/js/jquery.dataTables.min.js",
+              "src/assets/js/dataTables.bootstrap4.min.js",
+              "node_modules/gijgo/js/gijgo.min.js",
+              "node_modules/socket.io-file-client/socket.io-file-client.js"
 
             ]
           },

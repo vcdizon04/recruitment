@@ -1,4 +1,35 @@
 <div id="wrapper">
+
+    <div class="modal fade" id="applyNowModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Apply Now</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Please enter your personal information</p>
+                <div *ngFor="let field of fields"  class="input-group mb-3  px-5">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">{{field.text}}</span>
+                      </div>
+                      <div *ngIf="field.type == 'file'" class="custom-file">
+                        <input [(ngModel)]="field.value" type="file" class="custom-file-input" [id]="removeSpaces(field.text)">
+                        <label class="custom-file-label" [for]="removeSpaces(field.text)">{{field.value.length > 0 ? fixName(field.value) : 'Choose a file'}}</label>
+                      </div>
+                      <input [(ngModel)]="field.value" class="form-control" *ngIf="field.type == 'text'" type="text">
+                      <textarea [(ngModel)]="field.value" *ngIf="field.type == 'textArea'" class="form-control" aria-label="With textarea"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button (click)="applyNow()" type="button" class="btn btn-primary" data-dismiss="modal">Apply Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
   
     <app-client-sidebar></app-client-sidebar>
   
@@ -7,7 +38,7 @@
   
         <!-- Main Content -->
         <div id="content">
-            <app-client-navbar></app-client-navbar>
+            <app-client-navbar (onSearch)="onSearch($event)"></app-client-navbar>
                 <!-- Begin Page Content -->
           <div class="container-fluid">
   
@@ -19,22 +50,32 @@
     
               <!-- Content Row -->
               <div class="row">
-                 <div class="col-lg-8">
-                  <div class="card shadow mb-4">
-                    <div class="title">
-                      <h5 class="text-primary">Website Developer</h5>
-                      <h6>Software</h6>
-                      <p>2 years Experience</p>
-                      <p>Permanent</p>
-                      <p>Deadline: June 04, 2019</p>
-                    </div>
-                      <div class="card-body">
-                        <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce CSS bloat and poor page performance. Custom CSS classes are used to create custom components and custom utility classes.</p>
-                        <p class="mb-0">Before working with this theme, you should become familiar with the Bootstrap framework, especially the utility classes.</p>
-                      </div>
+                <div class="col-lg-8">
+                  <div *ngFor="let jobOpening of jobOpenings" class="row">
+                    <div class="col">
+                     <div data-toggle="collapse" [attr.data-target]="'#job-id-' + jobOpening.id" aria-expanded="false" aria-controls="job-details" class="card shadow mb-4">
+                       <div class="title">
+                          <button (click)="doApplyNow(jobOpening)" data-toggle="modal" data-target="#applyNowModal" class="btn btn-primary float-right">Apply Now</button>
+                         <h5 class="text-primary">{{parseJson(jobOpening.job_description).position_title}}</h5>
+                         <h6>{{parseJson(jobOpening.job_information).department}}</h6>
+                         <p  class="m-0">{{fromNow(jobOpening.created_on)}}</p>
+                       </div>
+                       <div class="card-body">
+                            <p class="m-0"> <span class="text-primary">Experience: </span> <span class="ml-2">{{parseJson(jobOpening.job_information).minimum_experience}}</span></p>
+                            <p  class="m-0"><span class="text-primary">Job Type:</span> <span class="ml-2">{{parseJson(jobOpening.job_information).employment_type}}</span></p>
+                            <p><span class="text-primary">Submission Deadline: </span><span class="ml-2">{{parseJson(jobOpening.job_information).submission_deadline}}</span></p>
+                            <div class="collapse"  id="job-id-{{jobOpening.id}}">
+                           <!-- <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce CSS bloat and poor page performance. Custom CSS classes are used to create custom components and custom utility classes.</p> -->
+                              <div  [innerHTML]="jobOpening.opening_description" class="mb-0">
+                              </div>
+                            </div>
+                          </div>
+                       </div>
                     </div>
                  </div>
-                 <div class="col-lg-4">
+                </div>
+
+                <div class="col-lg-4">
                   <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -59,6 +100,8 @@
                   </div>
                  </div>
               </div>
+
+            
               
             </div>
             <!-- /.container-fluid -->

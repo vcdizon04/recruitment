@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
   isToggled = false;
-  constructor() { }
+  constructor(
+    private databaseService: DatabaseService
+  ) { }
 
   ngOnInit() {
   }

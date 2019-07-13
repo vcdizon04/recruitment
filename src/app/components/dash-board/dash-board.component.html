@@ -7,7 +7,7 @@
 
       <!-- Main Content -->
       <div id="content">
-          <app-nav-bar></app-nav-bar>
+          <app-nav-bar ></app-nav-bar>
               <!-- Begin Page Content -->
         <div class="container-fluid">
 
@@ -21,13 +21,13 @@
             <div class="row">
   
               <!-- Earnings (Monthly) Card Example -->
-              <div class="col-xl-4 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
+              <div *ngFor="let stage of stages" class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Candidates</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">14032</div>
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">{{stage.stage}}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{getCandidatesByStage(stage.stage)}}</div>
                       </div>
                       <div class="col-auto">
                         <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -37,106 +37,6 @@
                 </div>
               </div>
   
-              <!-- Earnings (Monthly) Card Example -->
-              <div class="col-xl-4 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                  <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Face to Face Interview</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">30</div>
-                      </div>
-                      <div class="col-auto">
-                        <i class="fas fa-comments fa-2x text-gray-300"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-                 <!-- Earnings (Monthly) Card Example -->
-                 <div class="col-xl-4 col-md-6 mb-4">
-                    <div class="card border-left-success shadow h-100 py-2">
-                      <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                          <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Make an Offer</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">1500</div>
-                          </div>
-                          <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-  
-  
-              <!-- Pending Requests Card Example -->
-              <div class="col-xl-4 col-md-6 mb-4">
-                <div class="card border-left-warning shadow h-100 py-2">
-                  <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Phone Interview</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                      </div>
-                      <div class="col-auto">
-                        <i class="fas fa-phone fa-2x text-gray-300"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-xl-4 col-md-6 mb-4">
-                  <div class="card border-left-warning shadow h-100 py-2">
-                    <div class="card-body">
-                      <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                          <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Screening</div>
-                          <div class="h5 mb-0 font-weight-bold text-gray-800">150000</div>
-                        </div>
-                        <div class="col-auto">
-                          <i class="fas fa-street-view fa-2x text-gray-300"></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-xl-4 col-md-6 mb-4">
-                    <div class="card border-left-warning shadow h-100 py-2">
-                      <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                          <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Job Openings</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">500</div>
-                          </div>
-                          <div class="col-auto">
-                            <i class="fas fa-user-md fa-2x text-gray-300"></i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  
-                <div class="col-xl-4 col-md-6 mb-4">
-                    <div class="card border-left-warning shadow h-100 py-2">
-                      <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                          <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Question Sets</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">3500</div>
-                          </div>
-                          <div class="col-auto">
-                            <i class="fas fa-tasks fa-2x text-gray-300"></i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
             </div>
             <div class="row">
 
@@ -149,21 +49,21 @@
                       <h6 class="m-0 font-weight-bold text-primary">Candidates</h6>
                     </div>
                     <div class="card-body">
-                      <h4 class="small font-weight-bold">Hired <span class="float-right">20%</span></h4>
+                      <!-- <h4 class="small font-weight-bold">Hired <span class="float-right">{{getPercentageCandidate('Hired')}}%</span></h4>
                       <div class="progress mb-4">
-                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-danger" role="progressbar" [ngStyle]="{'width': getPercentageCandidate('Hired')+'%'}" [attr.aria-valuenow]="getPercentageCandidate('Hired')" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div> -->
+                      <h4 class="small font-weight-bold">Rejected<span class="float-right">{{getPercentageCandidate('Rejected')}}%</span></h4>
+                      <div class="progress mb-4">
+                        <div class="progress-bar bg-warning" role="progressbar"  [ngStyle]="{'width': getPercentageCandidate('Rejected')+'%'}"  [attr.aria-valuenow]="getPercentageCandidate('Rejected')" aria-valuemin="0" aria-valuemax="100"></div>
                       </div>
-                      <h4 class="small font-weight-bold">Rejected <span class="float-right">40%</span></h4>
+                      <h4 class="small font-weight-bold">Withdrawn <span class="float-right">{{getPercentageCandidate('Withdrawn')}}%</span></h4>
                       <div class="progress mb-4">
-                        <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar" role="progressbar" [ngStyle]="{'width': getPercentageCandidate('Withdrawn')+'%'}" [attr.aria-valuenow]="getPercentageCandidate('Withdrawn')" aria-valuemin="0" aria-valuemax="100"></div>
                       </div>
-                      <h4 class="small font-weight-bold">Withdrawn <span class="float-right">60%</span></h4>
+                      <h4 class="small font-weight-bold">Declined Offer <span class="float-right">{{getPercentageCandidate('Declined Offer')}}%</span></h4>
                       <div class="progress mb-4">
-                        <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <h4 class="small font-weight-bold">Declined Offer <span class="float-right">80%</span></h4>
-                      <div class="progress mb-4">
-                        <div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-info" role="progressbar" [ngStyle]="{'width': getPercentageCandidate('Declined Offer')+'%'}" [attr.aria-valuenow]="getPercentageCandidate('Declined Offer')" aria-valuemin="0" aria-valuemax="100"></div>
                       </div>
                      
                     </div>

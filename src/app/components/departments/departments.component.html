@@ -1,0 +1,108 @@
+<div id="wrapper">
+
+    <div class="modal fade" id="modalAddDepartment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Please Enter Department Title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <input [(ngModel)]="departmentTitle" type="text" class="form-control">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button (click)="addDepartment()" type="button" class="btn btn-primary" data-dismiss="modal">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="modalDeleteDepartment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Department</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure you want to delete department?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button (click)="deleteDepartment()" type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    <app-sidebar></app-sidebar>
+    
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+    
+    <!-- Main Content -->
+    <div id="content">
+      <app-nav-bar></app-nav-bar>
+      <div class="container-fluid">
+    
+        <h1 class="h3 mb-2 text-gray-800">Departments</h1>
+        <!-- DataTales Example -->
+        <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more
+          information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official
+            DataTables documentation</a>.</p>
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary d-inline">Entries</h6>
+            <button data-toggle="modal" data-target="#modalAddDepartment" class="btn btn-primary float-right">Add Department</button>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <table datatable  [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid"
+                      aria-describedby="dataTable_info" style="width: 100%;">
+                      <thead>
+                        <tr role="row">
+                          <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                            aria-sort="ascending" aria-label="Name: activate to sort column descending"
+                            style="width: 157px;">Department</th>
+                          <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                            aria-label="Position: activate to sort column ascending" style="width: 50px;">No. of Employees</th>
+                          <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                            aria-label="Position: activate to sort column ascending" style="width: 50px;">Action</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                        <tr>
+                          <th rowspan="1" colspan="1">Department</th>
+                          <th rowspan="1" colspan="1">No. of Employees</th>
+                          <th rowspan="1" colspan="1">Action</th>
+                        </tr>
+                      </tfoot>
+                      <tbody>
+                        <tr *ngFor="let department of departments" role="row" class="odd">
+                          <td>{{department.title}}</td>
+                          <td>{{getNoOfEmployee(department.title)}}</td>
+                          <td class="text-center">
+                              <button  data-toggle="modal" data-target="#modalDeleteDepartment" (click)="doDeleteDepartment(department.id)" class="ml-2 btn btn-danger">Delete</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+      </div>
+    </div>
+    </div>
+    </div>

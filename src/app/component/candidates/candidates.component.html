@@ -1,0 +1,93 @@
+<div id="wrapper">
+  
+<app-sidebar></app-sidebar>
+
+<!-- Content Wrapper -->
+<div id="content-wrapper" class="d-flex flex-column">
+
+<!-- Main Content -->
+<div id="content">
+  <app-nav-bar></app-nav-bar>
+  <div class="container-fluid">
+
+    <h1 class="h3 mb-2 text-gray-800">Candidates</h1>
+    <!-- DataTales Example -->
+    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more
+      information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official
+        DataTables documentation</a>.</p>
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Entries</h6>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+            <div class="row">
+              <div class="col-sm-12">
+                  <ul class="nav nav-tabs mb-4">
+                      <li (click)="filter('All')" class="nav-item">
+                        <a class="nav-link {{currentFilter == 'All' ? 'active' : ''}}" >All</a>
+                      </li>
+                      <li *ngFor="let stage of stages" (click)="filter(stage.stage)" class="nav-item">
+                        <a class="nav-link {{currentFilter == stage.stage ? 'active' : ''}}" >{{stage.stage}}</a>
+                      </li>
+                      
+                    </ul>
+                <table datatable  [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid"
+                  aria-describedby="dataTable_info" style="width: 100%;">
+                  <thead>
+                    <tr role="row">
+                      <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-sort="ascending" aria-label="Name: activate to sort column descending"
+                        style="width: 157px;">Name</th>
+                      <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-label="Position: activate to sort column ascending" style="width: 50px;">Job Title</th>
+                      <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-label="Position: activate to sort column ascending" style="width: 50px;">Stage</th>
+                      <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-label="Office: activate to sort column ascending" style="width: 113px;">Rating</th>
+                      <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-label="Age: activate to sort column ascending" style="width: 101px;">Date</th>
+                      <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-label="Start date: activate to sort column ascending" style="width: 105px;">Action
+                      </th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th rowspan="1" colspan="1">Name</th>
+                      <th rowspan="1" colspan="1">Job Title</th>
+                      <th rowspan="1" colspan="1">Stage</th>
+                      <th rowspan="1" colspan="1">Rating</th>
+                      <th rowspan="1" colspan="1">Date</th>
+                      <th rowspan="1" colspan="1">Action</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                    <tr *ngFor="let candidate of candidates" role="row" class="odd">
+                      <td class="sorting_1 cursor-pointer"><span (click)="viewCandidate(candidate)" class="text-primary">{{parseJson(candidate.details)[0].value}}</span></td>
+                      <td>{{candidate.job_title}}</td>
+                      <td>{{candidate.stage}}</td>
+                      <td> {{candidate.rating}}</td>
+                      <td>{{formatDate(candidate.created_on)}}</td>
+                      <td>
+                        <a href="mailto:{{parseJson(candidate.details)[1].value}}" class="btn btn-success">Email</a>
+                        <!-- <button data-toggle="modal" (click)="downloadCv()" class="ml-2 btn btn-primary">Download CV</button> -->
+                        <a target="_blank"   class="ml-2 btn btn-primary" [href]="fileServer+'/'+parseJson(candidate.details)[2].value">
+                          View CV
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+</div>
