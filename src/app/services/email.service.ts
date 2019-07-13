@@ -13,8 +13,8 @@ export class EmailService {
   // Configure the credentials provider to use your identity pool
   AWS.config.region = 'us-east-1'; // Region
   AWS.config.update({
-     accessKeyId: 'AKIAJ6LJYZXK6VYY5AZQ',
-     secretAccessKey: 'Vm73eUAlqzc08wBT7EHdNyinoWXj4uwq4pDdc8FI',
+     accessKeyId: 'AKIAJCSANFDFEGKEZGEA',
+     secretAccessKey: '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',
      region: 'us-east-1'
    });
   this.ses = new AWS.SES();
