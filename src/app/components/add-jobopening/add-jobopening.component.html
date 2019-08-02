@@ -298,7 +298,7 @@
                           <ul id="fields" class="list-group checked-list-box">
                             <!-- <ngx-sortable listStyle="listStyle" [items]="items" [name]="'Stages'" (listSorted)="listSorted($event)" > -->
                                 <!-- <ng-template let-item> -->
-                                    <li  *ngFor="let field of fields" class="list-group-item mb-2" >
+                                    <li  *ngFor="let field of fields; let i = index;" class="list-group-item mb-2" >
                                        <div class="clearfix">
                                           <div class="float-left" >
                                             <input *ngIf="!field.isDefault" [(ngModel)]="field.isChecked" class="mr-2" type="checkbox" id="isChecked">
@@ -308,6 +308,9 @@
                                           <div class="float-right">
                                             <input [(ngModel)]="field.isRequired" class="mr-2" type="checkbox" id="isRequired">
                                             <p>This field is required</p>
+                                            <button (click)="removeField(i)" *ngIf="!field.isDefault" class="btn btn-sm btn-transparent ml-2">
+                                              <i class="fa fa-trash text-danger"></i>
+                                            </button>
                                           </div>
                                        </div>
                                     </li>

@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatabaseService } from './services/database.service';
 
 import { DataTablesModule } from 'angular-datatables';
@@ -19,6 +19,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { EmailService } from './services/email.service';
 import { AdminGuardService } from './admin/admin.guard.service';
 import { DepartmentsComponent } from './components/departments/departments.component';
+import { MissingRequirmentsComponent } from './components/client-page/missing-requirments/missing-requirments.component';
+import { CsvGeneratorService } from './services/csv-generator.service';
+import { ReportsComponent } from './components/reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -26,12 +29,15 @@ import { DepartmentsComponent } from './components/departments/departments.compo
     routingComponents,
     LogInComponent,
     DepartmentsComponent,
+    MissingRequirmentsComponent,
+    ReportsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     EditorModule,
     FormsModule,
+    ReactiveFormsModule,
     DataTablesModule,
     NgxSpinnerModule,
     CommonModule,
@@ -44,7 +50,8 @@ import { DepartmentsComponent } from './components/departments/departments.compo
   providers: [
     DatabaseService,
     EmailService,
-    AdminGuardService
+    AdminGuardService,
+    CsvGeneratorService
   ],
   bootstrap: [AppComponent],
   entryComponents: routingComponents

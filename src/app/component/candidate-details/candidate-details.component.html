@@ -195,6 +195,7 @@
       <div class="card shadow mb-4">
         <div class="card-header py-3">
           <h6 class="m-0 font-weight-bold text-primary d-inline">Applicant</h6>
+          <button (click)="followUpFiles()" class="float-right btn btn-primary ml-2">Follow Up Missing Requirements</button>
           <button (click)="downloadAllFiles()" class="float-right btn btn-primary">Download All Files</button>
         </div>
         <div class="card-body">
@@ -250,16 +251,13 @@
             <h6 class="m-0 font-weight-bold text-primary">Candidate Profile</h6>
           </div>
           <div class="card-body">
-            <div class="row">
+            <div *ngFor="let detail of parseJson(candidate?.details)" class="row">
               <div class="col-2">
-                <p *ngFor="let detail of parseJson(candidate?.details)" class="text-primary">
+                <p  class="text-primary">
                   {{detail.text}}    :
                 </p>
               </div>
               <div class="col-10">
-                <div *ngFor="let detail of parseJson(candidate?.details)">
-                   
-
                     <ng-container *ngIf="detail.type == 'file'; else elseTextTemplate">
                       <p><a [href]="fileServer+'/' + detail.value" target="_blank">
                         {{detail.value ? fileServer + '/' + detail.value : ''}}
@@ -271,9 +269,6 @@
                         </p>
                     </ng-template>
                     
-                   
-                </div>
-                 
               </div>
             </div>
           </div>

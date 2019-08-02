@@ -79,6 +79,21 @@ export class DatabaseService {
   
 
   }
+
+  uploadFileMissing(files,data){
+    // const uid = uuid.v4();
+    // this.uploader.upload(file, {data: uid} );
+    console.log(files)
+    let formData = new FormData();
+    for (var i = 0; i < files.length; i++) {
+      formData.append("uploads[]", files[i], files[i].name);
+    }
+    formData.append("data", JSON.stringify(data));
+    console.log(formData)
+    return this.http.post<any>(`${environment.fileUploadServer}/api/upload/missing`, formData)
+  
+
+  }
   disConnectSocketIo(){
     this.socket.disconnect();
   }
@@ -152,6 +167,10 @@ export class DatabaseService {
   addStage(stage, callback: Function) {
     this.socket.emit('add-stage', stage, callback);
   }
+
+  addCandidateUid(id, callback: Function) {
+    this.socket.emit('add-uid', id, callback);
+  }
   getNewStageAdded(callback: Function){
     this.socket.on('new-stage', callback);
   }
@@ -170,7 +189,9 @@ export class DatabaseService {
   getCandidateDetails(id,callback: Function) {
     this.socket.emit('get-candidate', id, callback);
   }
-
+  getCandidateDetailsByUid(uid,callback: Function) {
+    this.socket.emit('get-candidate-by-uid', uid, callback);
+  }
   getUser() {
     return JSON.parse(localStorage.getItem('user'));
   }

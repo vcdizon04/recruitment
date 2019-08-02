@@ -1,0 +1,115 @@
+<div id="wrapper">
+  
+    <app-sidebar></app-sidebar>
+    
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+    
+    <!-- Main Content -->
+    <div id="content">
+      <app-nav-bar></app-nav-bar>
+      <div class="container-fluid">
+    
+        <h1 class="h3 mb-2 text-gray-800">Reports</h1>
+        <!-- DataTales Example -->
+        <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more
+          information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official
+            DataTables documentation</a>.</p>
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class=" d-inline m-0 font-weight-bold text-primary">Entries</h6>
+            <button class="btn btn-primary float-right" (click)="downloadCsv()">Export CSV</button>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="row">
+                  <div class="col-sm-12">
+                      <ul class="nav nav-tabs mb-4">
+                          
+                          <li  (click)="changeTable('Opening Report')" class="nav-item">
+                            <a class="nav-link {{currentTable == 'Opening Report' ? 'active' : ''}}" >Opening Report</a>
+                          </li>
+                          <li  (click)="changeTable('Candidate Report')" class="nav-item">
+                              <a class="nav-link {{currentTable == 'Candidate Report' ? 'active' : ''}}" >Candidate Report</a>
+                            </li>
+                          
+                        </ul>
+                    <table datatable  [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid"
+                      aria-describedby="dataTable_info" style="width: 100%;">
+                      <thead  *ngIf="currentTable == 'Opening Report'">
+                        <tr role="row">
+                          <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                            aria-sort="ascending" aria-label="Name: activate to sort column descending"
+                            style="width: 157px;">Job Opening</th>
+                          <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                            aria-label="Position: activate to sort column ascending" style="width: 50px;">Created</th>
+                          <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                            aria-label="Position: activate to sort column ascending" style="width: 50px;">Candidates</th>
+                          <th *ngFor="let stage of stages" class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                            aria-label="Position: activate to sort column ascending" style="width: 50px;">{{stage.stage}}</th>
+                        </tr>
+                      </thead>
+                      <tfoot  *ngIf="currentTable == 'Opening Report'">
+                        <tr>
+                          <th rowspan="1" colspan="1">Job Opening</th>
+                          <th rowspan="1" colspan="1">Created</th>
+                          <th rowspan="1" colspan="1">Candidates</th>
+                          <th *ngFor="let stage of stages"  rowspan="1" colspan="1">{{stage.stage}}</th>
+                        </tr>
+                      </tfoot>
+                      <tbody  *ngIf="currentTable == 'Opening Report'">
+                        <tr *ngFor="let jobOpening of jobOpenings" role="row" class="odd">
+                          <td>{{parseJson(jobOpening.job_description).position_title}}</td>
+                          <td>{{formatDate(jobOpening.created_on)}}</td>
+                          <td>{{getTotalCandidate(jobOpening.id)}}</td>
+                          <td *ngFor="let stage of stages" >{{getTotalCandidateByStage(stage.stage, jobOpening.id)}}</td>
+                        </tr>
+                      </tbody>
+
+                      <thead  *ngIf="currentTable == 'Candidate Report'">
+                          <tr role="row">
+                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                              aria-sort="ascending" aria-label="Name: activate to sort column descending"
+                              style="width: 157px;">Candidate Name</th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                              aria-label="Position: activate to sort column ascending" style="width: 50px;">Email</th>
+                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                              aria-label="Position: activate to sort column ascending" style="width: 50px;">Phone</th>
+                            <th  class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                              aria-label="Position: activate to sort column ascending" style="width: 50px;">Apply Date</th>
+                              <th  class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                              aria-label="Position: activate to sort column ascending" style="width: 50px;">Status</th>
+                          </tr>
+                        </thead>
+                        <tfoot  *ngIf="currentTable == 'Candidate Report'">
+                          <tr>
+                            <th rowspan="1" colspan="1">Candidate Nmae</th>
+                            <th rowspan="1" colspan="1">Email</th>
+                            <th rowspan="1" colspan="1">Phone</th>
+                            <th rowspan="1" colspan="1">Apply Date</th>
+                            <th rowspan="1" colspan="1">Status</th>
+                          </tr>
+                        </tfoot>
+                        <tbody  *ngIf="currentTable == 'Candidate Report'">
+                          <tr *ngFor="let candidate of candidates" role="row" class="odd">
+                            <td>{{parseJson(candidate.details)[0].value}}</td>
+                            <td>{{parseJson(candidate.details)[1].value}}</td>
+                            <td>{{parseJson(candidate.details)[2].value}}</td>
+                            <td>{{formatDate(candidate.created_on)}}</td>
+                            <td>{{candidate.status}}</td>
+                          </tr>
+                        </tbody>
+                    </table>
+  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+      </div>
+    </div>
+    </div>
+    </div>

@@ -14,6 +14,7 @@ declare var $;
 })
 export class CandidateDetailsComponent implements OnInit {
 
+  domain = environment.domain;
   fileServer = environment.fileServer;
   employees: Array<any> = [];
   phoneInterViews = [];
@@ -203,10 +204,8 @@ export class CandidateDetailsComponent implements OnInit {
     }
     this.databaseService.updateCandidate(data, res => {
       console.log(res);
-      this.emailService.sendEmail(candidateEmail, message, (err,results) => {
-        if(err) console.error(err);
-        else console.log(results);
-        this.spinner.hide();
+      this.emailService.sendEmail(candidateEmail, message).subscribe(res => {
+        console.log(res);
       })
     }, 'interviews')
   }
@@ -236,9 +235,7 @@ export class CandidateDetailsComponent implements OnInit {
     }
     this.databaseService.updateCandidate(data, res => {
       console.log(res);
-      this.emailService.sendEmail(candidateEmail, message, (err,results) => {
-        if(err) console.error(err);
-        else console.log(results);
+      this.emailService.sendEmail(candidateEmail, message).subscribe( res=> {
         this.spinner.hide();
       })
     }, 'interviews')
@@ -266,9 +263,8 @@ export class CandidateDetailsComponent implements OnInit {
       <p> Department:  ${this.employee.department}</p>
       <p> Status:  ${this.employee.status}</p>
       `;
-      this.emailService.sendEmail(candidateEmail, message,(err,data) => {
-        if (err) console.log(err, err.stack); // an error occurred
-        else console.log(data);  
+      this.emailService.sendEmail(candidateEmail, message).subscribe(res => {
+        console.log(res);
       })
       this.employee = {
         firstName: '',
@@ -304,5 +300,74 @@ export class CandidateDetailsComponent implements OnInit {
       window.open(`${this.fileServer}/${directory}`, '_blank');
 
     })
+  }
+
+  followUpFiles() {
+    this.spinner.show();
+    const candidateDetails = this.parseJson(this.candidate.details);
+    const candidateEmail = candidateDetails[1].value;
+    const candidateName = candidateDetails[0].value;
+    const missingFiles = candidateDetails.filter(element => !element.value);
+    console.log(missingFiles, 'missingFiles');
+    let message = `<h1>Hello ${candidateName}, Please Complete the following details to process your application: </h1>`;
+    missingFiles.forEach(element => {
+      message += `<p>${element.text}</p>`
+    });
+    
+  
+
+   if(!this.candidate.uid) {
+    this.databaseService.addCandidateUid(this.candidate.id, res => {
+      console.log(res);
+      this.spinner.hide();
+
+      message += `
+        <br>
+        <p><strong>Please click this button to complete details:</strong></p>
+        <a href="${this.domain}/missing-requirements?uid=${res.uid}" style="color: #fff;
+        background-color: #2e59d9;
+        border-color: #2653d4; display: inline-block;
+        font-weight: 400; text-align: center;
+        vertical-align: middle;border: 1px solid transparent;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        border-radius: .35rem;
+        text-decoration: none;">Complete Now</a>
+      `;
+      this.emailService.sendEmail(candidateEmail, message).subscribe(res => {
+        console.log(res);
+      });  
+    })
+    
+   } else {
+    message += `
+    <br>
+    <p><strong>Please click this button to complete details:</strong></p>
+    <a href="${this.domain}/missing-requirements?uid=${this.candidate.uid}" style="color: #fff;
+    background-color: #2e59d9;
+    border-color: #2653d4; display: inline-block;
+    font-weight: 400; text-align: center;
+    vertical-align: middle;border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .35rem;
+    text-decoration: none;">Complete Now</a>
+  `
+  this.emailService.sendEmail(candidateEmail, message).subscribe(res => {
+    console.log(res);
+    this.spinner.hide();
+  })
+     
+   }
+
+  
+
+  this.toastr.success(undefined, 'Email Sent', {
+    timeOut: 2000,
+    closeButton: true,
+    positionClass: 'toast-top-full-width'
+  });
   }
 }

@@ -6,6 +6,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { EmailService } from 'src/app/services/email.service';
 import { environment } from 'src/environments/env';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+declare var $;
 
 @Component({
   selector: 'app-home',
@@ -20,11 +22,16 @@ export class HomeComponent implements OnInit {
   jobOpening;
   fields: Array<any> = [];
   searchVal = '';
+
+  registerForm: FormGroup;
+  submitted = false;
+  
   constructor(
     private DatabaseService: DatabaseService,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
-    private emailService: EmailService
+    private emailService: EmailService,
+    private formBuilder: FormBuilder
     ) {
     
     this.spinner.show();
@@ -81,7 +88,11 @@ export class HomeComponent implements OnInit {
     return new Date(deadline).getTime();
   }
   applyNow(){ 
-    this.spinner.show();
+    this.submitted = true;
+    console.log(this.registerForm.invalid);
+    if(!this.registerForm.invalid) {
+      $('#applyNowModal').modal('hide');
+      this.spinner.show();
     let fileList = [];
     this.fields.forEach(el => {
       if(el.type == 'file'){
@@ -118,26 +129,35 @@ export class HomeComponent implements OnInit {
         }
       })
       const applicantEmail = this.fields[1].value;
-      this.emailService.sendEmail(applicantEmail, message, (err,data) => {
-        if (err) console.log(err, err.stack); // an error occurred
-        else console.log(data);  
+      this.emailService.sendEmail(applicantEmail, message).subscribe(res => {
         this.spinner.hide()
         this.toastr.success(undefined, 'Application Submitted', {
           timeOut: 2000,
           closeButton: true,
           positionClass: 'toast-top-full-width'
         });
-
       })
     })
+    }
 
   }
   doApplyNow(jobOpening){
     this.jobOpening = jobOpening
     this.fields = this.parseJson(jobOpening.basic_information).fields;
+    const validation = {};
+    this.fields.forEach(element => {
+      validation[this.removeSpaces(element.text)] = ['', element.isRequired ? Validators.required : Validators.nullValidator];
+    })
+    console.log(validation);
+    this.registerForm = this.formBuilder.group(validation);
+    this.submitted = false;
     console.log(this.jobOpening);
   }
+
+  get f() { return this.registerForm.controls; }
+
   ngOnInit() {
+
   }
 
   ngOnDestroy(): void {
@@ -167,4 +187,6 @@ export class HomeComponent implements OnInit {
       console.log(this.jobOpenings);
     }
   }
+
+  
 }

@@ -1,32 +1,38 @@
 <div id="wrapper">
-
     <div class="modal fade" id="applyNowModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-lg" role="document">
           <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Apply Now</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>Please enter your personal information</p>
-                <div *ngFor="let field of fields"  class="input-group mb-3  px-5">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">{{field.text}}</span>
-                      </div>
-                      <div *ngIf="field.type == 'file'" class="custom-file">
-                        <input [(ngModel)]="field.value" type="file" class="custom-file-input" [id]="removeSpaces(field.text)">
-                        <label class="custom-file-label" [for]="removeSpaces(field.text)">{{field.value.length > 0 ? fixName(field.value) : 'Choose a file'}}</label>
-                      </div>
-                      <input [(ngModel)]="field.value" class="form-control" *ngIf="field.type == 'text'" type="text">
-                      <textarea [(ngModel)]="field.value" *ngIf="field.type == 'textArea'" class="form-control" aria-label="With textarea"></textarea>
+            <form [formGroup]="registerForm" (ngSubmit)="applyNow()">
+
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Apply Now</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
                 </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              <button (click)="applyNow()" type="button" class="btn btn-primary" data-dismiss="modal">Apply Now</button>
-            </div>
+                <div class="modal-body">
+                    <p>Please enter your personal information</p>
+                    <div *ngIf="submitted && registerForm.invalid" class="alert alert-danger">
+                        An Error Occured, please check form
+                    </div>
+                      <div *ngFor="let field of fields"  class="input-group mb-3  px-5">
+                          <div class="input-group-prepend">
+                              <span class="input-group-text">{{field.text}} <span *ngIf="field.isRequired" class="text-danger">*</span></span>
+                            </div>
+                            <div *ngIf="field.type == 'file'" class="custom-file">
+                              <input [formControlName]="removeSpaces(field.text)" [(ngModel)]="field.value" type="file" class="custom-file-input {{ submitted && f[removeSpaces(field.text)].errors ? 'is-invalid' : ''}}" [id]="removeSpaces(field.text)">
+                              <label class="custom-file-label" [for]="removeSpaces(field.text)">{{field.value.length > 0 ? fixName(field.value) : 'Choose a file'}}</label>
+                            </div>
+                            <input  [formControlName]="removeSpaces(field.text)" [(ngModel)]="field.value" class="form-control {{ submitted && f[removeSpaces(field.text)].errors ? 'is-invalid' : ''}}" *ngIf="field.type == 'text'" type="text">
+                            <textarea [formControlName]="removeSpaces(field.text)" [(ngModel)]="field.value" *ngIf="field.type == 'textArea'" class="form-control {{ submitted && f[removeSpaces(field.text)].errors ? 'is-invalid' : ''}}" aria-label="With textarea"></textarea>
+                      </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                  <button  type="submit" class="btn btn-primary" >Apply Now</button>
+                </div>
+
+            </form>
           </div>
         </div>
       </div>

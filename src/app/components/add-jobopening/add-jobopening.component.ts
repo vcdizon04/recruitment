@@ -38,6 +38,7 @@ export class AddJobopeningComponent implements OnInit {
   fields = [
     {text: 'Name', isChecked: true, isDefault: true, isRequired: true, type: 'text', value: ''},
     {text: 'Email', isChecked: true, isDefault: true, isRequired: true, type: 'text', value: ''},
+    {text: 'Phone', isChecked: true, isDefault: true, isRequired: true, type: 'text', value: ''},
     {text: 'Upload CV',  isChecked: true, isDefault: true, isRequired: true, type: 'file', value: ''},
     {text: 'Upload Photo', isChecked: false, isRequired: false, type: 'file', value: ''},
     {text: 'Cover Letter', isChecked: false, isRequired: false, type: 'textArea', value: ''},
@@ -47,7 +48,6 @@ export class AddJobopeningComponent implements OnInit {
     {text: 'Marital Status', isChecked: false, isRequired: false, type: 'text', value: ''},
     {text: 'Hobbies', isChecked: false, isRequired: false, type: 'textArea', value: ''},
     {text: 'Address', isChecked: false, isRequired: false, type: 'textArea', value: ''},
-    {text: 'Phone', isChecked: false, isRequired: false, type: 'text', value: ''},
     {text: 'Date of Birth', isChecked: false, isRequired: false, type: 'text', value: ''},
     {text: 'Gender', isChecked: false, isRequired: false, type: 'text', value: ''},
     {text: 'Driving License', isChecked: false, isRequired: false, type: 'file', value: ''},
@@ -202,6 +202,10 @@ export class AddJobopeningComponent implements OnInit {
       isRequired: false
     }
     console.log(this.fields)
+  }
+
+  removeField(index) {
+    this.fields.splice(index, 1);
   }
 
   finish(){

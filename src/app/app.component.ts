@@ -8,8 +8,7 @@ import { EmailService } from './services/email.service';
 })
 export class AppComponent {
   title = 'recruitment';
-  constructor(private emailService: EmailService) {
-    this.emailService.loadConfig();
+  constructor() {
   }
 }
 

@@ -16,6 +16,8 @@ import { CandidateDetailsComponent } from './component/candidate-details/candida
 import { LogInComponent } from './components/log-in/log-in.component';
 import { AdminGuardService } from './admin/admin.guard.service';
 import { DepartmentsComponent } from './components/departments/departments.component';
+import { MissingRequirmentsComponent } from './components/client-page/missing-requirments/missing-requirments.component';
+import { ReportsComponent } from './components/reports/reports.component';
 
 const routes: Routes = [
   {
@@ -36,9 +38,11 @@ const routes: Routes = [
   { path: 'question-sets', component: QuestionsetsComponent, canActivate: [AdminGuardService] },
   { path: 'employees', component: EmployeesComponent, canActivate: [AdminGuardService] },
   { path: 'home', component: HomeComponent },
+  { path: 'missing-requirements', component: MissingRequirmentsComponent },
   { path: 'candidates', component: CandidatesComponent, canActivate: [AdminGuardService] },
   { path: 'candidate-details', component: CandidateDetailsComponent, canActivate: [AdminGuardService] },
   { path: 'departments', component: DepartmentsComponent, canActivate: [AdminGuardService] },
+  { path: 'reports', component: ReportsComponent, canActivate: [AdminGuardService] },
 
 ];
 
@@ -61,6 +65,8 @@ export const routingComponents = [
   AddJobopeningComponent,
   CandidatesComponent,
   CandidateDetailsComponent,
-  DepartmentsComponent
+  DepartmentsComponent,
+  MissingRequirmentsComponent,
+  ReportsComponent
   
 ];

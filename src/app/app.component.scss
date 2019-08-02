@@ -14,3 +14,9 @@
         position: fixed !important;
     }
 }
+
+:host ::ng-deep {
+    .btn-transparent {
+        background-color: transparent;
+    }
+}
