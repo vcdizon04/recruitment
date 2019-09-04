@@ -102,7 +102,7 @@ export class AddJobopeningComponent implements OnInit {
       if(Object.keys(params).length){
         this.isActionUpdate = true;
         this.job = {
-          opening_description: this.job.opening_description,
+          opening_description: params.opening_description,
           basic_information: this.parseJson(params.basic_information),
           hiring_workflow: this.parseJson(params.hiring_workflow),
           job_description: this.parseJson(params.job_description),

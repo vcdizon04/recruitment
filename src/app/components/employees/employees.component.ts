@@ -21,10 +21,13 @@ export class EmployeesComponent implements OnInit {
   originalEmployees: Array<any> = [];
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
+  action: String = 'addEmployee';
+  currentIndexEdit: number;
   employee = {
-    firstName: '',
-    middleName: '',
-    lastName: '',
+    // firstName: '',
+    // middleName: '',
+    // lastName: '',
+    name: '',
     employeeId: '',
     email: '',
     employeeType: '',
@@ -34,6 +37,7 @@ export class EmployeesComponent implements OnInit {
     status: ''
     
   }
+  departments: Array<any> = [];
   currentFilter = 'All';
   constructor(
     private DatabaseService: DatabaseService,
@@ -61,12 +65,33 @@ export class EmployeesComponent implements OnInit {
       console.log(data);
       this.employees.push(data);
     })
+    this.DatabaseService.getDepartments(data => {
+      console.log(data);
+      this.departments = data;
+    })
    
   }
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
     this.DatabaseService.disConnectSocketIo();
+  }
+
+  doAddEmployee() {
+    this.action = 'addEmployee';
+    this.employee = {
+      // firstName: '',
+      // middleName: '',
+      // lastName: '',
+      name: '',
+      employeeId: '',
+      email: '',
+      employeeType: '',
+      dateOfHire: '',
+      designation: '',
+      department: '',
+      status: '',
+    }
   }
 
   addEmployee(){
@@ -76,9 +101,10 @@ export class EmployeesComponent implements OnInit {
     this.DatabaseService.addEmployee(this.employee, (res) => {
       console.log(res);
       this.employee = {
-        firstName: '',
-        middleName: '',
-        lastName: '',
+        // firstName: '',
+        // middleName: '',
+        // lastName: '',
+        name: '',
         employeeId: '',
         email: '',
         employeeType: '',
@@ -89,6 +115,22 @@ export class EmployeesComponent implements OnInit {
       }
       this.spinner.hide();
     })
+  }
+
+  updateEmployee() {
+    this.spinner.show();
+    this.DatabaseService.updateEmployee(this.employee, (res) => {
+      console.log(res);
+      this.employees[this.currentIndexEdit] = this.employee;
+      this.spinner.hide();
+    })
+  }
+
+  doUpdateEmployee(employee, index) {
+    this.action = 'updateEmployee';
+    this.currentIndexEdit = index;
+    this.employee = {...employee};
+    this.employee.employeeType = employee.employment_type;
   }
 
   ngAfterViewInit(): void {

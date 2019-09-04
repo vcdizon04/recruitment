@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/env';
 import { EmailService } from 'src/app/services/email.service';
+import { element } from 'protractor';
 declare var $;
 
 @Component({
@@ -17,11 +18,16 @@ export class CandidateDetailsComponent implements OnInit {
   domain = environment.domain;
   fileServer = environment.fileServer;
   employees: Array<any> = [];
+  departments: Array<any> = [];
   phoneInterViews = [];
   candidate;
   status = '';
   stage = '';
   comment = '';
+  assignor =  {
+    name: '',
+    id:  undefined,
+  };
   rating;
   interview = {
     stage: '',
@@ -33,9 +39,10 @@ export class CandidateDetailsComponent implements OnInit {
   interviewAction = "Add";
   currentInterviewEditIndex;
   employee = {
-    firstName: '',
-    middleName: '',
-    lastName: '',
+    name: '',
+    // firstName: '',
+    // middleName: '',
+    // lastName: '',
     employeeId: '',
     email: '',
     employeeType: '',
@@ -45,6 +52,7 @@ export class CandidateDetailsComponent implements OnInit {
     status: ''
     
   }
+  stages: Array<any> = [];
   constructor(
     private route: ActivatedRoute,
     private databaseService: DatabaseService,
@@ -62,11 +70,17 @@ export class CandidateDetailsComponent implements OnInit {
       this.databaseService.getCandidateDetails(params.id, data => {
         console.log(data);
         this.candidate = data[0];
+        this.databaseService.getJobStages(this.candidate.job_opening_id, stages => {
+          this.stages = this.parseJson(stages[0].hiring_workflow).stages;
+          console.log(this.stages);
+        })
         this.status = this.candidate.status;
         this.stage = this.candidate.stage;
         this.comment = this.candidate.comment;
         this.rating = this.candidate.rating;
-        this.phoneInterViews = this.parseJson( this.candidate.interviews )
+        this.assignor.id = this.candidate.asignor;
+        this.assignor.name = this.candidate.asignor_name;
+        this.phoneInterViews = this.parseJson( this.candidate.interviews );
       })
   
     });
@@ -75,6 +89,10 @@ export class CandidateDetailsComponent implements OnInit {
       console.log(res);
       this.employees = res;
       this.spinner.hide();
+    })
+    this.databaseService.getDepartments( res => {
+      console.log(res);
+      this.departments = res;
     })
   }
   ngAfterViewInit(): void {
@@ -130,7 +148,23 @@ export class CandidateDetailsComponent implements OnInit {
     }, 'status')
     
   }
+  updateCandidateAsignor(){
+    this.spinner.show();
+    const index = this.employees.findIndex(element => element.id == this.assignor.id);
+    this.assignor.name = this.employees[index].name;
+    console.log(this.assignor);
+    const data = {
+      id: this.candidate.id,
+      asignor: this.assignor.id,
+      asignorName: this.assignor.name
+    }
 
+    this.databaseService.updateCandidate(data, res => {
+      console.log(res);
+      this.spinner.hide();
+    }, 'asignor')
+    
+  }
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
@@ -252,9 +286,7 @@ export class CandidateDetailsComponent implements OnInit {
       const candidateName = candidateDetails[0].value;
       const message = `
       <h1>Congratulations! ${candidateName}, You are hired with the details:</h1>
-      <p> First Name:  ${this.employee.firstName}</p>
-      <p> Middle Name:  ${this.employee.middleName}</p>
-      <p> Last Name:  ${this.employee.lastName}</p>
+      <p> Name:  ${this.employee.name}</p>
       <p> Employee ID:  ${this.employee.employeeId}</p>
       <p> Email:  ${this.employee.email}</p>
       <p> Employee Type:  ${this.employee.employeeType}</p>
@@ -267,9 +299,10 @@ export class CandidateDetailsComponent implements OnInit {
         console.log(res);
       })
       this.employee = {
-        firstName: '',
-        middleName: '',
-        lastName: '',
+        name: '',
+        // firstName: '',
+        // middleName: '',
+        // lastName: '',
         employeeId: '',
         email: '',
         employeeType: '',

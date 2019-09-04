@@ -28,7 +28,7 @@ export class DatabaseService {
   
 
   connectSocketIo(){
-    this.socket = io(this.url);
+    this.socket = io(this.url, {secure: true} );
   }
   connectSocketFile(){
     this.uploader = new SocketIOFileClient(this.socket);
@@ -116,6 +116,9 @@ export class DatabaseService {
   addEmployee(data, callback: Function){
     this.socket.emit('add-employee', data, callback);
   }
+  updateEmployee(data, callback: Function){
+    this.socket.emit('edit-employee', data, callback);
+  }
 
   addJobOpening(data, callback: Function){
     this.socket.emit('add-job-opening', data, callback);
@@ -191,6 +194,9 @@ export class DatabaseService {
   }
   getCandidateDetailsByUid(uid,callback: Function) {
     this.socket.emit('get-candidate-by-uid', uid, callback);
+  }
+  getJobStages(id, callback: Function) {
+    this.socket.emit('get-job-stages', id, callback);
   }
   getUser() {
     return JSON.parse(localStorage.getItem('user'));

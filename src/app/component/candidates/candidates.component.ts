@@ -20,6 +20,9 @@ export class CandidatesComponent implements OnInit {
   fileServer = environment.fileServer;
   candidates: Array<any> = [];
   originalCandidates: Array<any> = [];
+  candidateId: number;
+  currentIndexDeleted: number;
+  
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   stages: Array<any> = [];
@@ -34,9 +37,10 @@ export class CandidatesComponent implements OnInit {
     this.spinner.show();
     this.DatabaseService.connectSocketIo();
     this.DatabaseService.getInitialCandidates(data => {
+      console.log(this.DatabaseService.user)
       console.log(data);
       this.candidates = data;
-      if(this.DatabaseService.user.level == 1) this.candidates = this.candidates.filter(element => element.interviews.indexOf(DatabaseService.user.name) > -1 )
+      if(this.DatabaseService.user.level == 1) this.candidates = this.candidates.filter(element => element.asignor == this.DatabaseService.user.id )
       this.originalCandidates = [...this.candidates];
       this.dtTrigger.next();
       this.spinner.hide();
@@ -69,6 +73,21 @@ export class CandidatesComponent implements OnInit {
       queryParams: {id : candidate.id}
     }
     this.router.navigate(['/candidate-details'],navigationExtras)
+  }
+
+  doDeleteCandidate(id, index) {
+    this.candidateId = id;
+    this.currentIndexDeleted = index;
+  }
+
+  deleteCandidate() {
+    this.spinner.show();
+    this.DatabaseService.deleteCandidate(this.candidateId, res => {
+      console.log(res);
+      this.originalCandidates.splice(this.currentIndexDeleted,1);
+      this,this.filter(this.currentFilter);
+      this.spinner.hide();
+    })
   }
 
   removeSpaces(text: string){

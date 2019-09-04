@@ -13,12 +13,12 @@
               <div class="col-md-6 mb-3">
                   <div class="input-group">
                       <div class="input-group-prepend">
-                        <span class="input-group-text" id="">First Name</span>
+                        <span class="input-group-text" id="">Full Name</span>
                       </div>
-                      <input [(ngModel)]="employee.firstName" type="text" class="form-control">
+                      <input [(ngModel)]="employee.name" type="text" class="form-control">
                     </div>
               </div>
-              <div class="col-md-6 mb-3">
+              <!-- <div class="col-md-6 mb-3">
                   <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="">Middle Name</span>
@@ -33,15 +33,15 @@
                       </div>
                       <input [(ngModel)]="employee.lastName" type="text" class="form-control">
                     </div>
-              </div>
-              <div class="col-md-6 mb-3">
+              </div> -->
+              <!-- <div class="col-md-6 mb-3">
                   <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="">Employee ID</span>
                       </div>
                       <input [(ngModel)]="employee.employeeId" type="text" class="form-control">
                     </div>
-              </div>
+              </div> -->
               <div class="col-md-6 mb-3">
                   <div class="input-group">
                       <div class="input-group-prepend">
@@ -51,18 +51,21 @@
                     </div>
               </div>
               <div class="col-md-6 mb-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="">Password</span>
+                    </div>
+                    <input [(ngModel)]="employee.password" type="email" class="form-control">
+                  </div>
+            </div>
+              <div class="col-md-6 mb-3">
                   <div class="input-group">
                       <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupSelect01">Department</label>
                       </div>
                       <select [(ngModel)]="employee.department" class="custom-select" id="inputGroupSelect01">
                         <option value="">Choose...</option>
-                        <option value="Administration">Administration</option>
-                        <option value="Engineering">Engineering</option>
-                        <option value="Design">Design</option>
-                        <option value="Marketing">Marketing</option>
-                        <option value="Sales">Sales</option>
-                        <option value="Support">Support</option>
+                        <option *ngFor="let department of departments" [value]="department.title">{{department.title}}</option>
                       </select>
                     </div>
               </div>
@@ -103,14 +106,20 @@
                       </select>
                     </div>
               </div>
-              <div class="col-md-6 mb-3">
+              <div *ngIf="action == 'addEmployee'" class="col-md-6 mb-3">
                   <input [(ngModel)]="employee.dateOfHire" type="text" id="datepicker" class="" placeholder="Date of Hire">
               </div>
              </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              <button (click)="addEmployee()" type="button" class="btn btn-primary" data-dismiss="modal">Add</button>
+              <ng-container *ngIf="action == 'addEmployee'; else editEmployee">
+                  <button (click)="addEmployee()" type="button" class="btn btn-primary" data-dismiss="modal">Add</button>
+              </ng-container>
+              <ng-template #editEmployee>
+                <button (click)="updateEmployee()" type="button" class="btn btn-primary" data-dismiss="modal">Update</button>
+              </ng-template>
+              
             </div>
           </div>
         </div>
@@ -132,7 +141,7 @@
       <div class="card shadow mb-4">
         <div class="card-header py-3">
           <h6 class="m-0 font-weight-bold text-primary d-inline">Entries</h6>
-          <button data-toggle="modal" data-target="#modalAddEmployee" class="btn btn-primary float-right">Add Employee</button>
+          <button data-toggle="modal" data-target="#modalAddEmployee" (click)="doAddEmployee()" class="btn btn-primary float-right">Add Employee</button>
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -172,6 +181,9 @@
                       <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                         aria-label="Start date: activate to sort column ascending" style="width: 105px;">Status
                       </th>
+                      <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                      aria-label="Start date: activate to sort column ascending" style="width: 105px;">Action
+                    </th>
                     </tr>
                   </thead>
                   <tfoot>
@@ -181,16 +193,20 @@
                       <th rowspan="1" colspan="1">Department</th>
                       <th rowspan="1" colspan="1">Employment Type</th>
                       <th rowspan="1" colspan="1">Status</th>
+                      <th rowspan="1" colspan="1">Action</th>
                     </tr>
                   </tfoot>
                   <tbody>
-                    <tr *ngFor="let employee of employees" role="row" class="odd">
+                    <tr *ngFor="let employee of employees; let i = index" role="row" class="odd">
                       <td class="sorting_1 cursor-pointer"><span (click)="viewCandidate(candidate)" class="text-primary">{{employee.name}}</span></td>
                       <td>{{employee.designation}}</td>
                       <td> {{employee.department}}</td>
                       <td>{{employee.employment_type}}</td>
                       <td>
                         {{employee.status}}
+                      </td>
+                      <td class="text-center">
+                        <button data-toggle="modal" data-target="#modalAddEmployee" (click)="doUpdateEmployee(employee,i)" class="btn btn-success">Edit</button>
                       </td>
                     </tr>
                   </tbody>

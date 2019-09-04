@@ -1,5 +1,25 @@
 <div id="wrapper">
-  
+ 
+    <div class="modal fade" id="modalDeleteCandidate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Delete Candidate</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button (click)="deleteCandidate(candidateId)" type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
 <app-sidebar></app-sidebar>
 
 <!-- Content Wrapper -->
@@ -49,6 +69,8 @@
                       <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                         aria-label="Age: activate to sort column ascending" style="width: 101px;">Date</th>
                       <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-label="Age: activate to sort column ascending" style="width: 101px;">Assignor</th>
+                      <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                         aria-label="Start date: activate to sort column ascending" style="width: 105px;">Action
                       </th>
                     </tr>
@@ -60,22 +82,25 @@
                       <th rowspan="1" colspan="1">Stage</th>
                       <th rowspan="1" colspan="1">Rating</th>
                       <th rowspan="1" colspan="1">Date</th>
+                      <th rowspan="1" colspan="1">Assignor</th>
                       <th rowspan="1" colspan="1">Action</th>
                     </tr>
                   </tfoot>
                   <tbody>
-                    <tr *ngFor="let candidate of candidates" role="row" class="odd">
+                    <tr *ngFor="let candidate of candidates; let i = index" role="row" class="odd">
                       <td class="sorting_1 cursor-pointer"><span (click)="viewCandidate(candidate)" class="text-primary">{{parseJson(candidate.details)[0].value}}</span></td>
                       <td>{{candidate.job_title}}</td>
                       <td>{{candidate.stage}}</td>
                       <td> {{candidate.rating}}</td>
                       <td>{{formatDate(candidate.created_on)}}</td>
+                      <td>{{candidate.asignor_name}}</td>
                       <td>
                         <a href="mailto:{{parseJson(candidate.details)[1].value}}" class="btn btn-success">Email</a>
                         <!-- <button data-toggle="modal" (click)="downloadCv()" class="ml-2 btn btn-primary">Download CV</button> -->
-                        <a target="_blank"   class="ml-2 btn btn-primary" [href]="fileServer+'/'+parseJson(candidate.details)[2].value">
+                        <a target="_blank"   class="ml-2 btn btn-primary" [href]="fileServer+'/'+parseJson(candidate.details)[3].value">
                           View CV
                         </a>
+                        <button data-toggle="modal" data-target="#modalDeleteCandidate" (click)="doDeleteCandidate(candidate.id,i)" class="btn btn-danger ml-2">Delete</button>
                       </td>
                     </tr>
                   </tbody>

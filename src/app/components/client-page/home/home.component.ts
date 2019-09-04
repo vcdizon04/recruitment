@@ -42,13 +42,14 @@ export class HomeComponent implements OnInit {
     })
     this.DatabaseService.getInitialJobOpenings(data => {
       console.log(data)
-      this.jobOpenings = data;
-      this.origJobOpenings = [...data];
+      const openings = data.reverse();
+      this.jobOpenings = openings;
+      this.origJobOpenings = [...openings];
       this.spinner.hide();
     })
     this.DatabaseService.getNewJobOpeningsRealTime(data => {
       console.log(data);
-      this.jobOpenings.push(data);
+      this.jobOpenings.unshift(data);
     })
     this.DatabaseService.getNewEditedJobOpeningsRealTime(data => {
       console.log(data);
