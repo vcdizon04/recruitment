@@ -136,8 +136,8 @@ export class DatabaseService {
     this.socket.emit(`update-${type}-candidate`, data, callback);
   }
 
-  deleteJobOpening(id){
-    this.socket.emit('delete-job-opening', id);
+  deleteJobOpening(id, callback: Function){
+    this.socket.emit('delete-job-opening', id, callback);
   }
   deleteCandidate(id, callback: Function ){
     this.socket.emit('delete-candidate', id, callback);

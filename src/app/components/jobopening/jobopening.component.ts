@@ -99,12 +99,13 @@ export class JobopeningComponent implements OnInit {
     this.currentDeleteId = id;
   }
   deleteJobOpening(){
-    this.DatabaseService.deleteJobOpening(this.currentDeleteId);
-    this.currentDeleteId = undefined;
-    this.toastr.info(undefined, 'Job Opening Deleted', {
-      timeOut: 2000,
-      closeButton: true,
-      positionClass: 'toast-top-full-width'
+    this.DatabaseService.deleteJobOpening(this.currentDeleteId, () => {
+      this.currentDeleteId = undefined;
+      this.toastr.info(undefined, 'Job Opening Deleted', {
+        timeOut: 2000,
+        closeButton: true,
+        positionClass: 'toast-top-full-width'
+      });
     });
   }
   async editJobOpening(jobOpening){
