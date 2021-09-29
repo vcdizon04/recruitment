@@ -24,7 +24,7 @@
     "angular-datatables": "^6.0.0",
     "angular-star-rating": "^4.0.0-beta.3",
     "css-star-rating": "^1.2.4",
-    "datatables.net": "^1.10.19",
+    "datatables.net": "^1.11.3",
     "datatables.net-dt": "^1.10.19",
     "gijgo": "^1.9.13",
     "moment": "^2.24.0",
