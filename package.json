@@ -27,7 +27,7 @@
     "datatables.net": "^1.10.19",
     "datatables.net-dt": "^1.10.19",
     "gijgo": "^1.9.13",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "ngx-doc-viewer": "^0.1.20",
     "ngx-sortable": "^1.0.1",
     "ngx-spinner": "^7.1.4",
